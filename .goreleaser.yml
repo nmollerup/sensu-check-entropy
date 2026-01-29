@@ -1,0 +1,75 @@
+version: 2
+project_name: sensu-check-entropy
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: check-entropy
+    main: ./cmd/check-entropy
+    binary: bin/check-entropy
+    env:
+      - CGO_ENABLED=0
+    targets:
+      - linux_386
+      - linux_amd64
+      - linux_arm_5
+      - linux_arm_6
+      - linux_arm_7
+      - linux_arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+  - id: metrics-entropy
+    main: ./cmd/metrics-entropy
+    binary: bin/metrics-entropy
+    env:
+      - CGO_ENABLED=0
+    targets:
+      - linux_386
+      - linux_amd64
+      - linux_arm_5
+      - linux_arm_6
+      - linux_arm_7
+      - linux_arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+archives:
+  - id: tar
+    formats: tar.gz
+    files:
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
+
+checksum:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_sha512-checksums.txt"
+  algorithm: sha512
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+      - "^style:"
+
+release:
+  github:
+    owner: nmollerup
+    name: sensu-check-entropy
+  draft: false
+  prerelease: auto
+
+snapshot:
+  version_template: "{{ .Tag }}-next"
