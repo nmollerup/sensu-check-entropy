@@ -14,8 +14,6 @@ builds:
     targets:
       - linux_386
       - linux_amd64
-      - linux_arm_5
-      - linux_arm_6
       - linux_arm_7
       - linux_arm64
     ldflags:
@@ -32,8 +30,6 @@ builds:
     targets:
       - linux_386
       - linux_amd64
-      - linux_arm_5
-      - linux_arm_6
       - linux_arm_7
       - linux_arm64
     ldflags:
