@@ -6,8 +6,8 @@ before:
     - go mod tidy
 
 builds:
-  - id: check-entropy
-    main: ./cmd/check-entropy
+  - main: ./cmd/check-entropy/main.go
+    id: check-entropy
     binary: bin/check-entropy
     env:
       - CGO_ENABLED=0
@@ -22,8 +22,8 @@ builds:
       - -X main.commit={{.Commit}}
       - -X main.date={{.Date}}
 
-  - id: metrics-entropy
-    main: ./cmd/metrics-entropy
+  - main: ./cmd/metrics-entropy/main.go
+    id: metrics-entropy
     binary: bin/metrics-entropy
     env:
       - CGO_ENABLED=0
@@ -50,22 +50,3 @@ checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_sha512-checksums.txt"
   algorithm: sha512
 
-changelog:
-  sort: asc
-  filters:
-    exclude:
-      - "^docs:"
-      - "^test:"
-      - "^ci:"
-      - "^chore:"
-      - "^style:"
-
-release:
-  github:
-    owner: nmollerup
-    name: sensu-check-entropy
-  draft: false
-  prerelease: auto
-
-snapshot:
-  version_template: "{{ .Tag }}-next"
