@@ -20,7 +20,8 @@ go.work
 # Build artifacts
 dist/
 bin/
-check-entropy
+/check-entropy
+/metrics-entropy
 
 # IDE
 .idea/
