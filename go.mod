@@ -1,6 +1,6 @@
 module github.com/nmollerup/sensu-check-entropy
 
-go 1.24.12
+go 1.25.0
 
 require (
 	github.com/sensu/sensu-go/types v0.13.0
